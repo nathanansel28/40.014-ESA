@@ -1,0 +1,92 @@
+Product_category,2
+totalroute_number,9
+productnum_number,10
+componentcat_number,2
+disworkstationnum_number,3
+reaworkstationnum_number,3
+The quantity of the 0th product is,10
+The quantity of the 1th product is,10
+The type of the 0th product 0th component damage type number is,3
+The type of the 0th product 1th component damage type number is,3
+The type of the 1th product 0th component damage type number is,3
+The type of the 1th product 1th component damage type number is,3
+The type of the 0th product 0th component 0th damage type combine number is,[4]
+The type of the 0th product 0th component 1th damage type combine number is,[5]
+The type of the 0th product 0th component 2th damage type combine number is,[2]
+The type of the 0th product 1th component 0th damage type combine number is,[2]
+The type of the 0th product 1th component 1th damage type combine number is,[2]
+The type of the 0th product 1th component 2th damage type combine number is,[3]
+The type of the 1th product 0th component 0th damage type combine number is,[3]
+The type of the 1th product 0th component 1th damage type combine number is,[3]
+The type of the 1th product 0th component 2th damage type combine number is,[3]
+The type of the 1th product 1th component 0th damage type combine number is,[1]
+The type of the 1th product 1th component 1th damage type combine number is,[5]
+The type of the 1th product 1th component 2th damage type combine number is,[5]
+The disassemble time of the0th product is,2
+The disassemble time of the1th product is,3
+The reassemble time of the0th product is,1
+The reassemble time of the1th product is,2
+The type of the 0th route combine total opertion is,"[10, 5, 6, 9]"
+The type of the 1th route combine total opertion is,"[6, 4, 2, 5]"
+The type of the 2th route combine total opertion is,"[9, 10, 5, 7]"
+The type of the 3th route combine total opertion is,"[7, 2, 4]"
+The type of the 4th route combine total opertion is,"[9, 4, 10, 3]"
+The type of the 5th route combine total opertion is,"[5, 9, 10]"
+The type of the 6th route combine total opertion is,"[9, 1, 4]"
+The type of the 7th route combine total opertion is,"[8, 7, 2]"
+The type of the 8th route combine total opertion is,"[9, 7, 2]"
+The type of the 0th product of the0th component the0th damage type can select the route is,"[[9, 10, 5, 7]]"
+The type of the 0th product of the0th component the1th damage type can select the route is,"[[9, 1, 4]]"
+The type of the 0th product of the0th component the2th damage type can select the route is,"[[9, 4, 10, 3]]"
+The type of the 0th product of the1th component the0th damage type can select the route is,"[[9, 7, 2]]"
+The type of the 0th product of the1th component the1th damage type can select the route is,"[[9, 1, 4]]"
+The type of the 0th product of the1th component the2th damage type can select the route is,"[[5, 9, 10]]"
+The type of the 1th product of the0th component the0th damage type can select the route is,"[[9, 10, 5, 7]]"
+The type of the 1th product of the0th component the1th damage type can select the route is,"[[6, 4, 2, 5]]"
+The type of the 1th product of the0th component the2th damage type can select the route is,"[[9, 4, 10, 3]]"
+The type of the 1th product of the1th component the0th damage type can select the route is,"[[10, 5, 6, 9]]"
+The type of the 1th product of the1th component the1th damage type can select the route is,"[[10, 5, 6, 9]]"
+The type of the 1th product of the1th component the2th damage type can select the route is,"[[8, 7, 2]]"
+The type of the 0th product of the0th component the0th damage type select the the0th route restore time is,[2]
+The type of the 0th product of the0th component the0th damage type select the the1th route restore time is,[2]
+The type of the 0th product of the0th component the0th damage type select the the2th route restore time is,[2]
+The type of the 0th product of the0th component the0th damage type select the the3th route restore time is,[2]
+The type of the 0th product of the0th component the1th damage type select the the0th route restore time is,[2]
+The type of the 0th product of the0th component the1th damage type select the the1th route restore time is,[2]
+The type of the 0th product of the0th component the1th damage type select the the2th route restore time is,[2]
+The type of the 0th product of the0th component the2th damage type select the the0th route restore time is,[2]
+The type of the 0th product of the0th component the2th damage type select the the1th route restore time is,[2]
+The type of the 0th product of the0th component the2th damage type select the the2th route restore time is,[2]
+The type of the 0th product of the0th component the2th damage type select the the3th route restore time is,[2]
+The type of the 0th product of the1th component the0th damage type select the the0th route restore time is,[3]
+The type of the 0th product of the1th component the0th damage type select the the1th route restore time is,[4]
+The type of the 0th product of the1th component the0th damage type select the the2th route restore time is,[4]
+The type of the 0th product of the1th component the1th damage type select the the0th route restore time is,[3]
+The type of the 0th product of the1th component the1th damage type select the the1th route restore time is,[5]
+The type of the 0th product of the1th component the1th damage type select the the2th route restore time is,[5]
+The type of the 0th product of the1th component the2th damage type select the the0th route restore time is,[4]
+The type of the 0th product of the1th component the2th damage type select the the1th route restore time is,[5]
+The type of the 0th product of the1th component the2th damage type select the the2th route restore time is,[5]
+The type of the 1th product of the0th component the0th damage type select the the0th route restore time is,[6]
+The type of the 1th product of the0th component the0th damage type select the the1th route restore time is,[8]
+The type of the 1th product of the0th component the0th damage type select the the2th route restore time is,[7]
+The type of the 1th product of the0th component the0th damage type select the the3th route restore time is,[8]
+The type of the 1th product of the0th component the1th damage type select the the0th route restore time is,[7]
+The type of the 1th product of the0th component the1th damage type select the the1th route restore time is,[7]
+The type of the 1th product of the0th component the1th damage type select the the2th route restore time is,[7]
+The type of the 1th product of the0th component the1th damage type select the the3th route restore time is,[5]
+The type of the 1th product of the0th component the2th damage type select the the0th route restore time is,[8]
+The type of the 1th product of the0th component the2th damage type select the the1th route restore time is,[7]
+The type of the 1th product of the0th component the2th damage type select the the2th route restore time is,[5]
+The type of the 1th product of the0th component the2th damage type select the the3th route restore time is,[6]
+The type of the 1th product of the1th component the0th damage type select the the0th route restore time is,[8]
+The type of the 1th product of the1th component the0th damage type select the the1th route restore time is,[10]
+The type of the 1th product of the1th component the0th damage type select the the2th route restore time is,[7]
+The type of the 1th product of the1th component the0th damage type select the the3th route restore time is,[5]
+The type of the 1th product of the1th component the1th damage type select the the0th route restore time is,[10]
+The type of the 1th product of the1th component the1th damage type select the the1th route restore time is,[5]
+The type of the 1th product of the1th component the1th damage type select the the2th route restore time is,[5]
+The type of the 1th product of the1th component the1th damage type select the the3th route restore time is,[7]
+The type of the 1th product of the1th component the2th damage type select the the0th route restore time is,[5]
+The type of the 1th product of the1th component the2th damage type select the the1th route restore time is,[5]
+The type of the 1th product of the1th component the2th damage type select the the2th route restore time is,[8]
