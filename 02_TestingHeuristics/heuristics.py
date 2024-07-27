@@ -82,6 +82,196 @@ def LETSA_load_factory(df_machine):
         factory[workcenter] = LETSAWorkCenter(workcenter, dict_machines=dict_machines)
     return factory 
 
+def LETSA_find_critical_path(operations, feasible_operations): 
+    """
+    Finds the critical path among the feasible operations.
+    Inputs:
+        - operations                    : dictionary {operation_id: Operation()}, a dictionary of all operations
+        - feasible_operations           : list[operation_id],  a list of operation IDs that are currently feasible
+    Output:
+        - critical_path, critical_length
+    """
+
+    def dfs(operations, current_op_id, path, path_length, all_paths):
+        """ 
+        Performs recursive DFS on the operation network. 
+        Inputs: 
+            - operations                : dictionary {operation_id: Operation()}, dictionary of all operations 
+            - current_op_id             : str, the ID of the node at which the DFS is performed
+            - path                      : list, to keep track of current path
+            - path_length               : float, to keep track of current path length
+            - all_paths                 : list, to keep track of all possible paths 
+        Output: 
+            - None, perform in place
+        """
+
+        path.append(current_op_id)
+        path_length += operations[current_op_id].processing_time
+        
+        if not operations[current_op_id].predecessors:
+            all_paths.append((list(path), path_length))
+        else:
+            for pred in operations[current_op_id].predecessors:
+                dfs(operations, pred, path, path_length, all_paths)
+        
+        path.pop()
+        path_length -= operations[current_op_id].processing_time
+
+    def find_all_paths(operations, feasible_operations):
+        """
+        Calls DFS on all the feasible operations. 
+        Inputs: 
+            - operations                : dictionary {operation_id: Operation()}, dictionary of all operations 
+            - feasible_operations       : list [operation_id], list of all feasible operations to perform DFS on 
+        """
+
+        all_paths = []
+        for op_id in feasible_operations:
+            dfs(operations, op_id, [], 0, all_paths)
+        return all_paths
+
+    all_paths = find_all_paths(operations, feasible_operations)
+    # print("     printing all paths")
+    # for path in all_paths: 
+        # print(path[0], path[1])
+    critical_path, critical_length = max(all_paths, key=lambda x:x[1])
+
+    return critical_path, critical_length
+
+def LETSA_schedule_operations(operations, factory):
+    """
+    Solves the assembly scheduling problem (ASP) using the Longest End Time Scheduling Algorithm (LETSA).
+    Inputs:
+        - operations            : dictionary {operation_id: Operation()}, a dictionary of all operations.
+        - factory               : list [WorkCenter()], a list of WorkCenter objects, containing machine information and availability
+    Output:
+        - scheduled_operations  : list [Operation()], a list of Operation objects with start and end time schedules.
+    """
+
+    scheduled_operations = []
+    # [[Step 4]]
+    i = 1
+    while True:
+        # print(f"Iteration {i}")
+        # ================================================================================================================
+        #  [[4.0]] Feasible operations = every operation that is 
+        #                               (1) not scheduled, and 
+        #                               (2) has all successors scheduled, OR does not have any successors
+        # ================================================================================================================
+        feasible_operations = [op_id for op_id, op in operations.items() if ((not op.scheduled) and (op.successor==None or operations[op.successor].scheduled))]
+        # print(f"feasible operations: {feasible_operations}")
+        if not feasible_operations:
+            break # terminate if all operations have been scheduled
+
+        # ===================================================================
+        #  [[4.1 - 4.3]] Compute critical path only for feasible operations
+        # ===================================================================
+        critical_path, length = LETSA_find_critical_path(operations, feasible_operations)
+        selected_operation_id = critical_path[0]
+        selected_operation = operations[selected_operation_id]
+        # print(f"critical path: {critical_path}, length: {length}")
+        # print(f"selected operation: {selected_operation_id}")
+
+        # =====================================================================
+        # [[4.4]] Set completion/end time of the selected operation as
+        #         (ii) the start time of the successor, if a successor exists
+        #         (ii) the project deadline, otherwise 
+        # =====================================================================
+        if selected_operation.successor: 
+            # if the operation has a successor 
+            # then the tentative end time is the start time of the successor
+            successor_id = selected_operation.successor
+            tentative_completion_time = operations[successor_id].start_time
+        else: 
+            # else, the operation is an end product and its tentative completion time must be its own deadline
+            tentative_completion_time = selected_operation.due_date
+
+        # ============================================================================
+        #   [[4.5]] For each identical machine incuded in the required work-center 
+        # ============================================================================
+        def check_availability(time, machine_usage): 
+            """
+            Returns True if the time interval does not overlap with any intervals in machine_usage, False otherwise.
+                time            : (start, end)
+                machine_usage   : list of tuples [(start1, end1), (start2, end2), ...]
+            """
+            start, end = time
+            for interval in machine_usage:
+                interval_start, interval_end = interval
+                if not (end <= interval_start or start >= interval_end):
+                    return False
+            return True
+
+        def find_latest_start_time(completion_time, processing_time, machine_usage):
+            """
+            completion_time : float
+            processing_time : float
+            machine_usage   : list of tuples [(start1, end1), (start2, end2), ...]
+            
+            Returns the latest possible start time such that the job can be completed
+            before the completion time and does not overlap with any intervals in machine_usage.
+            """
+            latest_start_time = completion_time - processing_time
+
+            # Sort the machine usage intervals by their start times
+            machine_usage = sorted(machine_usage, key=lambda x: x[0])
+            
+            # Iterate over the machine usage intervals in reverse order
+            for interval in reversed(machine_usage):
+                interval_start, interval_end = interval
+                
+                # Check if there is a gap between the intervals where the job can fit
+                if interval_end <= latest_start_time:
+                    if check_availability((latest_start_time, latest_start_time + processing_time), machine_usage):
+                        return latest_start_time
+                latest_start_time = min(latest_start_time, interval_start - processing_time)
+            
+            # Check if the latest possible start time is valid
+            if check_availability((latest_start_time, latest_start_time + processing_time), machine_usage):
+                return latest_start_time
+            
+            return None
+
+        current_workcenter_id = str(selected_operation.workcenter)
+        current_workcenter = factory[current_workcenter_id]             # WorkCenter object 
+        machine_type = str(selected_operation.machine)                  # machine id of required machine
+        possible_machines = current_workcenter.machines[machine_type]   # [[], [], []]
+
+        processing_time = selected_operation.processing_time
+        tentative_start_time = tentative_completion_time - processing_time
+        possible_start_times = []
+        for machine_idx, machine_schedule in enumerate(possible_machines):
+            # print(machine_idx, machine_schedule)
+            # if not machine_schedule:  # If machine schedule is empty, then machine is immediately useable
+            #     latest_available_start_time = tentative_completion_time - selected_operation.processing_time
+            if check_availability((tentative_start_time, tentative_completion_time), machine_schedule) :
+                start_time, end_time = tentative_start_time, tentative_completion_time
+            else: 
+                start_time = find_latest_start_time(tentative_completion_time, processing_time, machine_schedule) 
+                end_time = start_time + processing_time
+            possible_start_times.append((machine_idx, start_time, end_time))
+            # print(start_time, end_time)
+
+        # ============================================================================
+        #   [[4.6]] Select a machine to schedule operation Jc  
+        # ============================================================================
+        selected_machine, finalized_start_time, finalized_end_time = max(possible_start_times, key=lambda x:x[1]) 
+        current_workcenter.machines[machine_type][machine_idx].append((finalized_start_time, finalized_end_time))
+
+        # ============================================================================
+        #   [[4.7]] Delete operation Jc from the network
+        #   [[4.8]] Add all eligible operations into the list of feasible operations     
+        # ============================================================================
+        selected_operation.start_time = start_time
+        selected_operation.end_time = end_time
+        selected_operation.scheduled = True
+        scheduled_operations.append(selected_operation)
+
+        i += 1 
+        # print()
+        
+    return scheduled_operations
+
 def LETSA_plot_gantt_chart(scheduled_operations, plot_path=None, plot_name=None):   
     fig, ax = plt.subplots(figsize=(20, 20))
 
@@ -603,19 +793,3 @@ def SA_generate_beautified_gantt_chart(schedule, df_BOM, df_machine):
     ax.set_xlim(0, df_schedule['End'].max())
 
     plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
