@@ -16,7 +16,7 @@ The primary goal of this project is to create a schedule that minimises the make
 - **03_Heuristics**: Our working heuristics can be accessed via `heuristics.ipynb`. We developed four heuristics, namely: 
   - **Lead Time Evaluation and Scheduling Algorithm (LETSA)**: Developed by [(Agrawal et al., 1994)](https://doi.org/10.1080/15458830.1996.11770710), this heuristic produces a near-optimal operations schedule while minimizing makespan as well as WIP costs. It is a very efficient heuristic, requiring very little computational efforts.
   - **Earliest Due Date (EDD)**: Also known as the Moore-Hodgson algorithm, the EDD heuristic minimizes the number of tardy jobs by scheduling operations with the closest deadline first. While this algorithm is very common especially for single machine settings, our implementation allows the EDD to work in a multi-machine setting where tasks are constrained to certain precedence constraints.
-  - **Simulated Annealing**:
+  - **Simulated Annealing**: Simulated Annealing (SA) is an metaheuristic optimisation technique that iteratively improves a solution by exploring its neighborhood, avoiding local optima and converge on a high quality solution. This would allow us to obtain a near-optimal solution while thoroughly exploring the solution space.
   - **Lagrangian Relaxation**:
  
 # Working Web App
