@@ -6,7 +6,9 @@ The Bill-of-Materials (BOM) plays a crucial role in assembly operations, detaili
 
 The primary goal of this project is to create a schedule that minimises the makespan (total time to complete all tasks) while considering constraints such as workstation availability, task order, and potential downtimes. The complexity of assembly line scheduling arises from the vast number of possible schedules, which grows exponentially with the number of tasks and workstations. Traditional optimization methods, while aiming for the absolute best solution, become computationally impractical for large-scale problems with numerous tasks and workstations. Hence, heuristic methods are preferred in this scenario.
 
-In this project, we implement four heuristics to tackle the operations scheduling problem in an assembly line while considering precedence and machine availability constraints. We provide further explanation below.  
+In contrast to traditional optimisation methods that struggle with large-scale assembly line scheduling, heuristics offer a powerful alternative. Their computational efficiency allows for quick generation of good quality solutions, crucial for real-time decision making. Additionally, their flexibility enables customisation based on line constraints, task priorities, or performance objectives, leading to a more suitable approach for dynamic environments. Ultimately, heuristics provide a valuable balance between solution quality and computational effort, offering near-optimal results that significantly outperform random scheduling while remaining achievable within practical timeframes.
+
+This repository summarises our work in developing and implementing some of the leading heuristics in operations scheduling.
 
 # Directories
 - **01_Data**: In this section, we gather and generate datasets crucial to our project.  
