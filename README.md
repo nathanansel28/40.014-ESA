@@ -33,3 +33,5 @@ Tan Chong Hao \
 Long Yan Ting
 
 ### Special Thanks
+This project was done as part of the 2D project in the 40.014 Engineering Systems Architecture and 40.012 Manufacturing and Service Operations. We express our special thanks to Prof. Sun Zeyu and Prof. Rakesh Nagi for their guidance and support throughout the duration of the project. 
+
