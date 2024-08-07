@@ -17,7 +17,7 @@ The primary goal of this project is to create a schedule that minimises the make
   - **Lead Time Evaluation and Scheduling Algorithm (LETSA)**: Developed by [(Agrawal et al., 1994)](https://doi.org/10.1080/15458830.1996.11770710), this heuristic produces a near-optimal operations schedule while minimizing makespan as well as WIP costs. It is a very efficient heuristic, requiring very little computational efforts.
   - **Earliest Due Date (EDD)**: Also known as the Moore-Hodgson algorithm, the EDD heuristic minimizes the number of tardy jobs by scheduling operations with the closest deadline first. While this algorithm is very common especially for single machine settings, our implementation allows the EDD to work in a multi-machine setting where tasks are constrained to certain precedence constraints.
   - **Simulated Annealing**: Simulated Annealing (SA) is an metaheuristic optimisation technique that iteratively improves a solution by exploring its neighborhood, avoiding local optima and converge on a high quality solution. This would allow us to obtain a near-optimal solution while thoroughly exploring the solution space.
-  - **Lagrangian Relaxation**:
+  - **Lagrangian Relaxation**: Developed by [(Xu & Nagi, 2013)](https://doi.org/10.1109/tase.2013.2259816) , the Lagrangian Relaxation (LR) approach involves formulating the scheduling problem as a MILP and relaxing the constraints into the objective function with the use of appropriate Lagrangian multipliers and solving the decomposed subproblems to obtain feasible solutions. This algorithm provides a lower bound and minimizes the runtime and also obtain near-optimal results with a very short computational time.
  
 # Working Web App
 
